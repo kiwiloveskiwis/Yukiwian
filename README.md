@@ -1,0 +1,1 @@
+This is a data mining project aimed to solve the Alibaba music trend prediction challenge produced by Hatsuyuki, Kiwi and Vivian.
