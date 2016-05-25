@@ -1,4 +1,4 @@
-__author__ = 'wanghaoting'
+__author__ = 'Hatsuyuki'
 
 import pandas as pd
 import numpy as np
