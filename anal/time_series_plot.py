@@ -13,6 +13,6 @@ ts_for_artists.columns = np.arange(50, dtype = int)
 
 for i in np.arange(0): ts_for_artists = ts_for_artists.apply(diff, axis = 0)
 #ts_for_artists = ts_for_artists.apply(np.sum, axis = 1)
-ts_for_artists.plot(figsize = (12, 8))
+ts_for_artists.iloc[:, :].plot(figsize = (12, 8))
 
 plt.show()

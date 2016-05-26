@@ -15,17 +15,16 @@ pred = pd.DataFrame(data = np.zeros((pred_size, np.size(ts.columns))), index = p
 n_lags = 7
 
 for songs in ts.columns:
-    clf = RandomForestRegressor(n_estimators = 100, random_state = random_state, verbose = 1)
+    clf = RandomForestRegressor(n_estimators = 100, random_state = random_state)
     val = ts[songs].values
     train = np.array([val[0:n_lags]])
-    test = np.array(val[n_lags])
+    y = np.array(val[n_lags])
     for i in np.arange(1, np.size(val) - n_lags):
         train = np.concatenate((train, [val[i:i + n_lags]]))
-        test = np.append(test, val[i + n_lags])
-    clf.fit(train, test)
+        y = np.append(y, val[i + n_lags])
+    clf.fit(train, y)
     for i in np.arange(pred_size):
         val = np.append(val, clf.predict([val[-n_lags:]]))
     pred[songs] = val[-pred_size:]
-    #print np.shape(test)
 
 pred.to_csv('pred.csv', index = False)

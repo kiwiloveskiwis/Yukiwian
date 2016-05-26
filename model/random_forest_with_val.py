@@ -26,15 +26,14 @@ for songs in ts.columns:
     clf = RandomForestRegressor(n_estimators = 100, random_state = random_state)
     val = ts.loc[train_range, songs].values
     train = np.array([val[0:n_lags]])
-    test = np.array(val[n_lags])
+    y = np.array(val[n_lags])
     for i in np.arange(1, np.size(val) - n_lags):
         train = np.concatenate((train, [val[i:i + n_lags]]))
-        test = np.append(test, val[i + n_lags])
-    clf.fit(train, test)
+        y = np.append(y, val[i + n_lags])
+    clf.fit(train, y)
     for i in np.arange(valid_size):
         val = np.append(val, clf.predict([val[-n_lags:]]))
     valid[songs] = val[-valid_size:]
-    #print np.shape(test)
 
 valid.to_csv(r'../data/valid.csv', index = False)
 
