@@ -19,7 +19,10 @@ n_lags = 7
 train = []
 y = []
 
+c = 0
 for songs in ts.columns:
+    c += 1
+    if c % 100 == 0: print c
     val = ts[songs].values
     for i in np.arange(0, np.size(val) - n_lags):
         train = np.concatenate((train, np.append(song.loc[song.song == songs].drop('song', axis = 1).values, [val[i:i + n_lags]])))
