@@ -8,4 +8,6 @@ def diff(a):
 
 def summation(a):
     n = np.size(a)
-    return a + np.append([0], a)[1:]
+    for i in np.arange(1, n + 1):
+        a[i] += a[i - 1]
+    return a
