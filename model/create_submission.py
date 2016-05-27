@@ -21,3 +21,4 @@ def write_to_file(name_of_file, submission):
             if ind == '2015-08-31': continue
             s = col + ',' + str(max(submission.loc[ind, col], 10.0)) + ',' + ind.replace('-','') + '\n'
             f.write(s)
+    f.close()
