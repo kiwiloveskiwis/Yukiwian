@@ -18,11 +18,11 @@ pred = pd.DataFrame(np.zeros((date_size, np.size(ts.columns))), index = date_ran
 
 for artist in ts:
     min_aic = 1e100
-    for p in range(8):
+    for p in range(10):
         for q in range(4):
             try:
-                arima_model = ARIMA(ts[artist], (7, 1, 1))
-                arima_res = arima_model.fit()
+                arima_model = ARIMA(ts[artist], (p, 1, q))
+                arima_res = arima_model.fit(trend = 'nc')
                 #print arima_res.summary()
                 if arima_res.aic < min_aic:
                     pred[artist] = summation(arima_res.predict(start = '20150831', end = '20151030').values)
