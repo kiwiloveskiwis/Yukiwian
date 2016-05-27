@@ -4,8 +4,8 @@ import numpy as np
 from scipy import stats
 import pandas as pd
 import matplotlib.pyplot as plt
-import statsmodels.api as sm
-from statsmodels.graphics.api import qqplot
+#import statsmodels.api as sm
+#from statsmodels.graphics.api import qqplot
 from ts_anal_tools.diff import diff
 
 ts_for_artists = pd.read_csv(r'../data/ts_for_artists.csv', index_col = 0)
