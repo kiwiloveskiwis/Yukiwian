@@ -37,7 +37,7 @@ for songs in ts.columns:
 
 train.dump(r'../data/train_all.np')
 y.dump(r'../data/y_all.np')
-clf = RandomForestRegressor(n_estimators = 300, random_state = random_state, n_jobs = 2)
+clf = RandomForestRegressor(n_estimators = 100, random_state = random_state, n_jobs = 2)
 clf.fit(train, y)
 
 c = 0
