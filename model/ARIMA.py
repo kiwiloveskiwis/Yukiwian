@@ -40,7 +40,6 @@ for artist in ts:
                 val_pred = np.array(val_pred)
                 val_pred[0] += ts[artist].iloc[-1]
                 val_pred = summation(val_pred)
-                #print np.shape(validation[artist].values)
                 val_score = score(validation[artist].values.reshape((20, 1)), val_pred.reshape((20, 1)))
                 print 'Validation_Score: ' + str(val_score)
                 if val_score > max_score:

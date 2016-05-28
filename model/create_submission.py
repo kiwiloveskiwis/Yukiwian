@@ -11,6 +11,7 @@ def create_submission(pred):
     for col in pred:
         #c += 1
         #print c
+        #submission[songs.loc[col]['artist']] += pred[col].values.astype(int)
         submission[songs.loc[col]['artist']] += pred[col]
     return submission
 
@@ -19,6 +20,12 @@ def write_to_file(name_of_file, submission):
     for col in submission:
         for ind in submission.index:
             if ind == '2015-08-31': continue
-            s = col + ',' + str(max(submission.loc[ind, col], 10.0)) + ',' + ind.replace('-','') + '\n'
+            #s = col + ',' + str(max(submission.loc[ind, col], 10.0)) + ',' + ind.replace('-','') + '\n'
+            s = col + ',' + str(submission.loc[ind, col]) + ',' + ind.replace('-','') + '\n'
             f.write(s)
     f.close()
+
+def one_step_convert(name_of_output_file, name_of_input_file, flag = False):
+    submission = pd.read_csv(r'../data/' + name_of_input_file, index_col = 0)
+    if flag == True: submission = create_submission(submission)
+    write_to_file(name_of_output_file, submission)
