@@ -35,8 +35,6 @@ for songs in ts.columns:
         #else: train = np.concatenate((train, [np.append(song_info, [val[i:i + n_lags]])]))
         #y = np.append(y, val[i + n_lags])
 
-train.dump(r'../data/train_all.np')
-y.dump(r'../data/y_all.np')
 clf = RandomForestRegressor(n_estimators = 100, random_state = random_state, n_jobs = 2)
 clf.fit(train, y)
 
@@ -50,4 +48,4 @@ for songs in ts.columns:
         val = np.append(val, clf.predict(np.append(song_info , [val[-n_lags:]])))
     pred[songs] = val[-pred_size:]
 
-pred.to_csv(r'../data/pred.csv', index = False)
+pred.to_csv(r'../data/pred.csv')
