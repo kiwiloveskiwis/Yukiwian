@@ -35,7 +35,7 @@ for songs in ts.columns:
         val = np.append(val, clf.predict([val[-n_lags:]]))
     valid[songs] = val[-valid_size:]
 
-valid.to_csv(r'../data/valid.csv', index = False)
+valid.to_csv(r'../data/valid.csv')
 
 sco = score(create_submission(pred = valid).values, ts_for_artists.loc[valid_range].values)
 print sco
