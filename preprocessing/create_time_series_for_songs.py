@@ -15,10 +15,11 @@ ts_down = pd.DataFrame(data = np.zeros((num_days, num_songs)), index = date_rang
 ts_like = pd.DataFrame(data = np.zeros((num_days, num_songs)), index = date_range, columns = songs['song'])
 
 for index, row in act.iterrows():
+    print index
     #if row['action_type'] == 1: ts.loc[str(row['date']), row['song']] += 1
     if row['action_type'] == 2: ts_down.loc[str(row['date']), row['song']] += 1
     if row['action_type'] == 3: ts_like.loc[str(row['date']), row['song']] += 1
 
-#ts.to_csv(r'data/ts.csv')
-ts_down.to_csv(r'data/ts_down.csv')
-ts_like.to_csv(r'data/ts_like.csv')
+#ts.to_csv(r'../data/ts.csv')
+ts_down.to_csv(r'../data/ts_down.csv')
+ts_like.to_csv(r'../data/ts_like.csv')
