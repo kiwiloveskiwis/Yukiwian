@@ -8,6 +8,7 @@ from datetime import datetime
 random_state = 2016
 n_lags = 7
 alpha = 2.0 / (n_lags + 1)
+thres = 20
 
 def expma(prev, cur, alpha, flag = True):
     if flag: return prev * (1 - alpha) + cur * alpha
@@ -39,11 +40,15 @@ for songs in ts.columns:
     print c
     c += 1
 
-    clf = RandomForestRegressor(n_estimators = 100, random_state = random_state, n_jobs = 2)
-
     val = ts[songs].values
+    if np.sum(val) < thres:
+        pred[songs] = np.array([np.sum(val) * 1.0 / pred_size for i in range(pred_size)])
+        continue
+
     val_like = ts_like[songs].values
     val_down = ts_like[songs].values
+
+    clf = RandomForestRegressor(n_estimators = 100, random_state = random_state, n_jobs = 2)
 
     prev, ma = 0, 0
     prev_like, ma_like = 0, 0
