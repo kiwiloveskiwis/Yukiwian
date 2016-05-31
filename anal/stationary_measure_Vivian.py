@@ -7,7 +7,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import Pipeline
 
-def rmse(y_ex,y):
+def rsme(y_ex,y):
 	return np.sqrt(np.mean((y_ex-y)**2))
 	
 def comp(y_ex,y):
@@ -27,4 +27,3 @@ def measure(y):
 	
 	t=comp(y_ex,y)
         return t
-	
