@@ -40,20 +40,17 @@ for songs in ts.columns:
 
     clf = RandomForestRegressor(n_estimators = 50, random_state = random_state, n_jobs = 2)
 
-    prev, ma = 0, 0
-    prev_like, ma_like = 0, 0
-    prev_down, ma_down = 0, 0
+    ma = 0, 0
+    ma_like = 0, 0
+    ma_down = 0, 0
 
     for i in np.arange(0, np.size(val) - n_lags):
         train[i] = np.concatenate((val[i:i + n_lags], val_like[i:i + n_lags], val_down[i:i + n_lags], [ma, ma_like, ma_down]))
         y[i] = [val[i + n_lags], val_like[i + n_lags], val_down[i + n_lags]]
 
-        ma = expma(prev, val[i], alpha, i)
-        prev = ma
-        ma_like = expma(prev_like, val_like[i], alpha, i)
-        prev_like = ma_like
-        ma_down = expma(prev_down, val_down[i], alpha, i)
-        prev_down = ma_down
+        ma = expma(ma, val[i], alpha, i)
+        ma_like = expma(ma_like, val_like[i], alpha, i)
+        ma_down = expma(ma_down, val_down[i], alpha, i)
 
     clf.fit(train, y)
     print clf.feature_importances_
@@ -65,14 +62,10 @@ for songs in ts.columns:
         val_like = np.append(val_like, y_t[0][1])
         val_down = np.append(val_down, y_t[0][2])
 
-        ma = expma(prev, val[-n_lags - 1], alpha, True)
-        prev = ma
-        ma_like = expma(prev_like, val_like[-n_lags - 1], alpha, True)
-        prev_like = ma_like
-        ma_down = expma(prev_down, val_down[-n_lags - 1], alpha, True)
-        prev_down = ma_down
+        ma = expma(ma, val[-n_lags - 1], alpha, True)
+        ma_like = expma(ma_like, val_like[-n_lags - 1], alpha, True)
+        ma_down = expma(ma_down, val_down[-n_lags - 1], alpha, True)
 
     pred[songs] = val[-pred_size:]
-    #print val
 
 pred.to_csv(r'../data/pred.csv')
