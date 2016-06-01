@@ -3,6 +3,11 @@ __author__ = 'Hatsuyuki'
 import numpy as np
 import pandas as pd
 
+def _ave_sim(a, b):
+    x = a[1].values
+    y = b[1].values
+    return np.mean((y - x) / (x + y) / 2)
+
 def _sim(a, b):
     x = a[1].values
     y = b[1].values
@@ -13,3 +18,6 @@ def read_sub(file_name):
 
 def res_sim(a, b):
     return _sim(read_sub(a), read_sub(b))
+
+def res_ave_sim(a, b):
+    return _ave_sim(read_sub(a), read_sub(b))
